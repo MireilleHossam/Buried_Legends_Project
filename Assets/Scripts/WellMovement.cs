@@ -8,8 +8,23 @@ public class WellMovement : MonoBehaviour
     // public float targetHeight = 2f;
     public float minHeight = 0.0f; // minimum height the well walls can move
 
+    private bool moveFirst = false;
+
 
     void Update()
+    {
+        if (moveFirst == true)
+        {
+            MoveWell();
+        }
+    }
+
+    public void MoveFirstFloor()
+    {
+        moveFirst = true;
+    }
+
+    private void MoveWell()
     {
         // Move the well walls downward
         transform.Translate(Vector3.down * moveSpeed * Time.deltaTime, Space.World);
@@ -17,10 +32,11 @@ public class WellMovement : MonoBehaviour
         //turned gravity off as it made it fall too fast
 
         // add additional logic to stop the movement based on certain conditions
-        // stop the movement when a specific height is reached>
+        // stop the movement when a specific height is reached->
         if (transform.position.y < minHeight)
         {
+            moveFirst = false;
             moveSpeed = 0f;
+        }
     }
-}
 }
